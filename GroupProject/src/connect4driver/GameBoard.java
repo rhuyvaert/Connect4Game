@@ -1,6 +1,7 @@
 
 package connect4driver;
 
+import java.io.*;
 
 public abstract class GameBoard {
     
@@ -16,7 +17,7 @@ public abstract class GameBoard {
         gameBoard=new GamePiece[height][width];
     }
     
-    public abstract void gamePieces(int x);
+    public abstract void gamePieces(int x)throws IOException;
     public abstract void print();
     
 }

@@ -1,6 +1,7 @@
 
 package connect4driver;
 
+import java.io.*;
 
 public class Connect4Board extends GameBoard {
     
@@ -9,9 +10,9 @@ public class Connect4Board extends GameBoard {
     GamePiece computer;
     GamePiece emptySlot;
     
-    public Connect4Board(int height, int width){
+    public Connect4Board(int height, int width)throws IOException{
         super(height,width);
-        emptySlot=new GamePiece(' ');
+        emptySlot=new GamePiece(' ',"emptyPiece");
         for (GamePiece[] gameBoard1 : gameBoard) {
             for (int j = 0; j < gameBoard1.length; j++) {
                 gameBoard1[j] = emptySlot;
@@ -33,17 +34,18 @@ public class Connect4Board extends GameBoard {
     
     /**
      * @param numberOfPlayers
+     * @throws java.io.IOException
      */
     @Override
-    public void gamePieces(int numberOfPlayers){
+    public void gamePieces(int numberOfPlayers)throws IOException{
         switch (numberOfPlayers) {
             case 1 -> {
-                player1=new GamePiece('X');
-                computer=new GamePiece('O');
+                player1=new GamePiece('X',"redPiece");
+                computer=new GamePiece('O',"blackPiece");
             }
             case 2 -> {
-                player1=new GamePiece('X');
-                player2=new GamePiece('O');
+                player1=new GamePiece('X',"redPiece");
+                player2=new GamePiece('O',"blackPiece");
             }
             default -> System.out.println("Game can only be played with 1 or 2 players, please re-enter the number of players and try again.");
         }
