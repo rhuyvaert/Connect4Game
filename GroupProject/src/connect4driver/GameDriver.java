@@ -14,6 +14,10 @@ public class GameDriver {
         System.out.print("Please enter the number of players: ");
         numberOfPlayers=input.nextInt(); //two seperate loops first for 2 players, second for one player vs computer
         connect4Board.gamePieces(numberOfPlayers); //create game piece for each player
+        connect4Board.placePieces(0,1);
+        connect4Board.placePieces(0,2);
+        connect4Board.placePieces(4,1);
+        connect4Board.print();
             //if only one player than uses a seperate loop to allow the player to play against the computer(multiple difficulties?)
         //randomizer that decides which player goes first
         //loop that lets each player place one piece then checks the win conditions function
@@ -28,6 +32,7 @@ public class GameDriver {
         //after each move checks if theres a winner, only have to start checking after fourth move has been played
         //have to check in 8 directions(dont ever have to check above the piece)
         //can rule out possible wins in certain directions if placed piece is less than 3 spaces from edge of board
+        //first check 3 spots out from placed piece first
         //returns a true or false if theres a winner
         return winner;
     }
