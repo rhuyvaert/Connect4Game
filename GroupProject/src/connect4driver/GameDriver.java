@@ -2,13 +2,12 @@
 package connect4driver;
 
 import java.util.*;
-import java.io.*;
 
 public class GameDriver {
     
     static Scanner input = new Scanner(System.in);
     
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args){
         int numberOfPlayers, columnPlaced;
         Connect4Board connect4Board=new Connect4Board(6,7); //create game board
         System.out.print("Please enter the number of players: ");

@@ -1,7 +1,4 @@
-
 package connect4driver;
-
-import java.io.*;
 
 public class Connect4Board extends GameBoard {
     
@@ -10,7 +7,7 @@ public class Connect4Board extends GameBoard {
     GamePiece computer;
     GamePiece emptySlot;
     
-    public Connect4Board(int height, int width)throws IOException{
+    public Connect4Board(int height, int width){
         super(height,width);
         emptySlot=new GamePiece(' ',"emptyPiece");
         for (GamePiece[] gameBoard1 : gameBoard) {
@@ -20,6 +17,10 @@ public class Connect4Board extends GameBoard {
         }
     }
     
+    /**
+    * Prints out the 2D array in the console that shows which pieces are in which.
+    * spots
+    */
     @Override
     public void print(){
         for (GamePiece[] gameBoard1 : gameBoard) {
@@ -34,10 +35,10 @@ public class Connect4Board extends GameBoard {
     
     /**
      * @param numberOfPlayers
-     * @throws java.io.IOException
+     * Passed in parameters is number of players playing the game.
      */
     @Override
-    public void gamePieces(int numberOfPlayers)throws IOException{
+    public void gamePieces(int numberOfPlayers){
         switch (numberOfPlayers) {
             case 1 -> {
                 player1=new GamePiece('X',"redPiece");
@@ -54,6 +55,9 @@ public class Connect4Board extends GameBoard {
     /**
      * @param column
      * @param player
+     * Parameters are the column the player wants the place the piece in
+     * and which players turn it is, the main driver should automatically pass this 
+     * in without any input from user.
      */
     public void placePieces(int column, int player){
         int length=(gameBoard.length-1);
@@ -71,8 +75,7 @@ public class Connect4Board extends GameBoard {
                     else if(i==length){
                         gameBoard[i][column]=player1;
                         break;
-                    }
-                    
+                    } 
                 }  }
             case 2 -> {
                 for(int i=0;i<=length;i++){
@@ -101,5 +104,4 @@ public class Connect4Board extends GameBoard {
             }
         }
     }    
-    
 }
