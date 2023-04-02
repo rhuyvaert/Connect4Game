@@ -16,7 +16,7 @@
 <h3 align="center">Connect 4 style game</h3>
 
   <p align="center">
-    project_description
+    A java based game of connect 4 that runs on a simple GUI
     <br />
     <a href="https://github.com/rhuyvaert/Connect4Game"><strong>Explore the docs »</strong></a>
     <br />
