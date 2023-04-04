@@ -14,8 +14,19 @@ public abstract class GameBoard {
         gameBoard=new GamePiece[height][width];
     }
     
-    public abstract void gamePieces(int x);
-    public abstract void print();
+    //prints the entire array with brackets around each piece
+    public void printBoard(){
+        for (GamePiece[] gameBoard1 : gameBoard) {
+            for (GamePiece gameBoard11 : gameBoard1) {
+                System.out.print("[");
+                gameBoard11.printPiece();
+                System.out.print("]");
+            }
+            System.out.println("");
+        }
+    }
+    
+    public abstract void gamePieces(int x); //number of different pieces used
     public abstract void placePiece(int column, int piece);
     public abstract void removePiece(int row, int column);
     

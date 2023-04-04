@@ -17,20 +17,8 @@ public class Connect4Board extends GameBoard {
         }
     }
     
-    /**
-    * Prints out the 2D array in the console that shows which pieces are in which.
-    * spots
-    */
-    @Override
-    public void print(){
-        for (GamePiece[] gameBoard1 : gameBoard) {
-            for (GamePiece gameBoard11 : gameBoard1) {
-                System.out.print("[");
-                gameBoard11.printPiece();
-                System.out.print("]");
-            }
-            System.out.println("");
-        }
+    public void printBoard(){
+        super.printBoard();
     }
     
     /**

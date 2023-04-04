@@ -16,8 +16,8 @@ public class GameDriver {
         connect4Board.placePiece(0,1);
         connect4Board.placePiece(0,2);
         connect4Board.placePiece(4,1);
-        connect4Board.placePiece(5,3);
-        connect4Board.print();
+        connect4Board.placePiece(5,2);
+        connect4Board.printBoard();
             //if only one player than uses a seperate loop to allow the player to play against the computer(multiple difficulties?)
         //randomizer that decides which player goes first
         //loop that lets each player place one piece then checks the win conditions function
