@@ -9,7 +9,7 @@ public class Connect4Board extends GameBoard {
     
     public Connect4Board(int height, int width){
         super(height,width);
-        emptySlot=new GamePiece(' ',"emptyPiece");
+        emptySlot=new GamePiece(' ',"emptyPiece","Blank");
         for (GamePiece[] gameBoard1 : gameBoard) {
             for (int j = 0; j < gameBoard1.length; j++) {
                 gameBoard1[j] = emptySlot;
@@ -26,15 +26,15 @@ public class Connect4Board extends GameBoard {
      * Passed in parameters is number of players playing the game.
      */
     @Override
-    public void gamePieces(int numberOfPlayers){
+    public void gamePieces(int numberOfPlayers,String name1, String name2){
         switch (numberOfPlayers) {
             case 1 -> {
-                player1=new GamePiece('X',"redPiece");
-                computer=new GamePiece('O',"blackPiece");
+                player1=new GamePiece('X',"redPiece",name1);
+                computer=new GamePiece('O',"blackPiece", name2);
             }
             case 2 -> {
-                player1=new GamePiece('X',"redPiece");
-                player2=new GamePiece('O',"blackPiece");
+                player1=new GamePiece('X',"redPiece", name1);
+                player2=new GamePiece('O',"blackPiece", name2);
             }
             default -> System.out.println("Game can only be played with 1 or 2 players, please re-enter the number of players and try again.");
         }

@@ -26,7 +26,7 @@ public abstract class GameBoard {
         }
     }
     
-    public abstract void gamePieces(int x); //number of different pieces used
+    public abstract void gamePieces(int x,String name1, String name2); //number of different pieces used
     public abstract void placePiece(int column, int piece);
     public abstract void removePiece(int row, int column);
     

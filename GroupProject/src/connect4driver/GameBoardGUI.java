@@ -2,7 +2,6 @@ package connect4driver;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class GameBoardGUI extends JFrame{
@@ -11,12 +10,6 @@ public class GameBoardGUI extends JFrame{
     private final int circleSize;
     private final int pos;
     private final int incr;
-    
-    public static void main(String[] args) throws Exception{
-        SwingUtilities.invokeLater(() -> {
-            GameBoardGUI gameBoardGUI = new GameBoardGUI();
-        });
-    }
     
     public GameBoardGUI() {
         super("GameBoardGUI");

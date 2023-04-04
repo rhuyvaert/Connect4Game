@@ -9,6 +9,7 @@ public class GamePiece {
     char piece;
     //private BufferedImage image;
     private String pieceName;
+    private String playerName;
     
     /**
      * Default constructor
@@ -26,12 +27,16 @@ public class GamePiece {
      * The name parameter verifies for the gui whether to place a red piece or a 
      * black piece
      */
-    public GamePiece(char x, String name){
+    public GamePiece(char x, String color, String name){
         piece = x;
-        pieceName = name;
+        pieceName = color;
+        playerName= name;
         //image=ImageIO.read(new File(name+".png"));
     }
     
+    public String getName(){
+        return playerName;
+    }
     public String getPiece(){
         return pieceName;
     }
