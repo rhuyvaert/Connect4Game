@@ -13,10 +13,10 @@ public class GameDriver {
         System.out.print("Please enter the number of players: ");
         numberOfPlayers=input.nextInt(); //two seperate loops first for 2 players, second for one player vs computer
         connect4Board.gamePieces(numberOfPlayers); //create game piece for each player
-        connect4Board.placePieces(0,1);
-        connect4Board.placePieces(0,2);
-        connect4Board.placePieces(4,1);
-        connect4Board.placePieces(5,3);
+        connect4Board.placePiece(0,1);
+        connect4Board.placePiece(0,2);
+        connect4Board.placePiece(4,1);
+        connect4Board.placePiece(5,3);
         connect4Board.print();
             //if only one player than uses a seperate loop to allow the player to play against the computer(multiple difficulties?)
         //randomizer that decides which player goes first

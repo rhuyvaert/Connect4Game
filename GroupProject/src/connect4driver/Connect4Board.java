@@ -17,9 +17,6 @@ public class Connect4Board extends GameBoard {
         }
     }
     
-    
-    
-    
     /**
     * Prints out the 2D array in the console that shows which pieces are in which.
     * spots
@@ -62,7 +59,8 @@ public class Connect4Board extends GameBoard {
      * and which players turn it is, the main driver should automatically pass this 
      * in without any input from user.
      */
-    public void placePieces(int column, int player){
+    @Override
+    public void placePiece(int column, int player){
         int length=(gameBoard.length-1);
         switch (player) {
             case 1 -> {
@@ -107,4 +105,14 @@ public class Connect4Board extends GameBoard {
             }
         }
     }    
+    
+    /**
+     * @param row
+     * @param column
+     * removes a piece from a specific location of the board.
+     */
+    @Override
+    public void removePiece(int row,int column){
+        gameBoard[row][column]=emptySlot;
+    }
 }

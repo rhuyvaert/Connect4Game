@@ -16,5 +16,7 @@ public abstract class GameBoard {
     
     public abstract void gamePieces(int x);
     public abstract void print();
+    public abstract void placePiece(int column, int player);
+    public abstract void removePiece(int row, int column);
     
 }
