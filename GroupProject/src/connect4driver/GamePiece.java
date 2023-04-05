@@ -1,3 +1,4 @@
+
 package connect4driver;
 
 import javax.imageio.ImageIO;
@@ -20,6 +21,7 @@ public class GamePiece {
     
     /**
      * @param x
+     * @param color
      * @param name
      * The x parameter is a character value passed in automatically by the Connect4Board
      * class that can be used as a visual representation in the Connect4Board.print()
@@ -37,8 +39,8 @@ public class GamePiece {
     public String getName(){
         return playerName;
     }
-    public String getPiece(){
-        return pieceName;
+    public char getPiece(){
+        return piece;
     }
     
     //public BufferedImage getImage()throws IOException{
