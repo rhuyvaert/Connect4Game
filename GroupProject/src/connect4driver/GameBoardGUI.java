@@ -4,6 +4,7 @@ package connect4driver;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.*;
 
 public class GameBoardGUI extends JFrame{
     private final int size;
@@ -19,9 +20,7 @@ public class GameBoardGUI extends JFrame{
         this.offset = 10;
         this.circleSize=(size/4)-(offset*2);
         this.pos=offset/2;
-        this.incr=size/4;
-        
-       
-        
+        this.incr=size/4;   
     }
+    
 }
