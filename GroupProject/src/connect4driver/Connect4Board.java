@@ -3,10 +3,10 @@ package connect4driver;
 
 public class Connect4Board extends GameBoard {
     
-    GamePiece player1;
-    GamePiece player2;
-    GamePiece computer;
-    GamePiece emptySlot;
+    private GamePiece player1;
+    private GamePiece player2;
+    private GamePiece computer;
+    private final GamePiece emptySlot;
     
     public Connect4Board(int height, int width){
         super(height,width);
@@ -54,11 +54,11 @@ public class Connect4Board extends GameBoard {
         switch (player) {
             case 1 -> {
                 for(int i=0;i<=length;i++){
-                    if(gameBoard[0][column].piece!=emptySlot.piece){
+                    if(gameBoard[0][column].getPiece()!=emptySlot.getPiece()){
                         System.out.println("Can't place piece here, column full. ");
                         return;
                     }
-                    else if(gameBoard[i][column].piece!=emptySlot.piece){
+                    else if(gameBoard[i][column].getPiece()!=emptySlot.getPiece()){
                         gameBoard[i-1][column]=player1;
                         break;
                     }
@@ -69,7 +69,7 @@ public class Connect4Board extends GameBoard {
                 }  }
             case 2 -> {
                 for(int i=0;i<=length;i++){
-                    if(gameBoard[i][column].piece!=emptySlot.piece){
+                    if(gameBoard[i][column].getPiece()!=emptySlot.getPiece()){
                         gameBoard[i-1][column]=player2;
                         break;
                     }
@@ -80,7 +80,7 @@ public class Connect4Board extends GameBoard {
                 }  }
             case 0 -> {
                 for(int i=0;i<=length;i++){
-                    if(gameBoard[i][column].piece!=emptySlot.piece){
+                    if(gameBoard[i][column].getPiece()!=emptySlot.getPiece()){
                         gameBoard[i-1][column]=computer;
                         break;
                     }
@@ -93,7 +93,17 @@ public class Connect4Board extends GameBoard {
                 System.out.println("Can't place piece in that location");
             }
         }
-    }    
+    }
+    
+    //checks if a column is empty or full
+    public boolean checkColumn(int x){
+        if(gameBoard[0][x].getPiece()!=emptySlot.getPiece()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     
     /**
      * @param row

@@ -1,14 +1,8 @@
-
 package connect4driver;
-
-import javax.imageio.ImageIO;
-import java.io.*;
-import java.awt.image.*;
 
 public class GamePiece {
 
-    char piece;
-    //private BufferedImage image;
+    private char piece;
     private String pieceName;
     private String playerName;
     
@@ -33,23 +27,19 @@ public class GamePiece {
         piece = x;
         pieceName = color;
         playerName= name;
-        //image=ImageIO.read(new File(name+".png"));
     }
     
+    //returns the player name assigned to that piece
     public String getName(){
         return playerName;
     }
+    
+    //returns the color of that piece
     public char getPiece(){
         return piece;
     }
     
-    //public BufferedImage getImage()throws IOException{
-        //return image;
-    //}
-    
-    /**
-     * Used by the boards print function to visualize the 2D array.
-     */
+    //prints out the character assigned to that piece for CLI and debugging purposes
     public void printPiece() {
         System.out.print(piece);
     }

@@ -1,44 +1,41 @@
 package connect4driver;
 
-import java.util.*;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class GameDriver {
 
     static Scanner input = new Scanner(System.in);
-
+    static boolean winner=false;
+    static int turn=0;
+    static int currentPlayer=1;
+    static int numberOfPlayers, columnPlaced;
+    static String name1, name2;
+    
     public static void main(String[] args) {
-        int numberOfPlayers, columnPlaced;
-        boolean winner = false;
-        int turn = 0;
-
-        //create game board
-        Connect4Board connect4Board = new Connect4Board(6, 7);
-
-        System.out.print("Please enter the number of players: ");
-        numberOfPlayers = input.nextInt();
-
-        String name1 = "", name2 = "";
+        Connect4Board connect4Board = new Connect4Board(6, 7); //create game board
+        GameBoardGUI gui = new GameBoardGUI(7,6,connect4Board);
+        gui.initGame();
+        gui.initBoard();
 
         // enter names for each player
-        if (numberOfPlayers == 1) {
-            System.out.println("Enter the name for first Player: ");
+        if (numberOfPlayers== 1) {
+            System.out.print("Enter the name for the first Player: ");
             //input.nextLine(); 
             name1 = input.nextLine();
 
             name2 = "Computer";
         } else if (numberOfPlayers == 2) {
-            System.out.println("Enter the name for first Player: ");
+            System.out.print("Enter the name for the first Player: ");
             //input.nextLine(); 
             name1 = input.nextLine();
 
-            System.out.println("Enter the name for the second Player: ");
+            System.out.print("\nEnter the name for the second Player: ");
             name2 = input.nextLine();
         }
 
         //create game piece for each player
         connect4Board.gamePieces(numberOfPlayers, name1, name2);
-
-        int currentPlayer = 1;
 
         //alternate turns in placing piece
         while (winner == false && turn < 42) {
@@ -61,11 +58,7 @@ public class GameDriver {
             }
 
             //switch players
-            if (currentPlayer == 1) {
-                currentPlayer = 2;
-            } else {
-                currentPlayer = 1;
-            }
+            GameDriver.changePlayer();
 
             turn++;
         }
@@ -79,6 +72,7 @@ public class GameDriver {
         } else {
             System.out.println("The game is a tie");
         }
+    }
         /*   
         //play against computer if only one player
         if (numberOfPlayers == 1) {
@@ -96,13 +90,20 @@ public class GameDriver {
   
     
     public static boolean winCondition(Connect4Board connect4Board, int currentPlayer) {
-
         // Check horizontally
         // Check vertically
         // Check diagonally (top-left to bottom-right)
         // Check diagonally (bottom-left to top-right)
+        return winner;
     }
-
+    
+    public static void changePlayer(){
+        if (currentPlayer == 1) {
+                currentPlayer = 2;
+            } else {
+                currentPlayer = 1;
+            }
+    }
     /*
     public static boolean winCondition(){
         boolean winner=false;
@@ -118,6 +119,4 @@ public class GameDriver {
 //    public static void easyComputer(){
     //easy mode computer opponent
 //    }
-}
-
 }
