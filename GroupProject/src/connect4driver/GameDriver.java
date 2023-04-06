@@ -60,6 +60,14 @@ public class GameDriver {
         //asks players if they want to play again
     
     public static boolean winCondition(int currentPlayer) {
+        for(int i=0;i<7;i++){
+            for(int j=0;j<6;j++)
+                connect4Board.returnBoard(i,j); //returns the character at the coordinates sent to it
+        }
+        
+        //connect4Board.gameBoard[0][0]
+            
+        
         // Check horizontally
         // Check vertically
         // Check diagonally (top-left to bottom-right)
@@ -74,18 +82,7 @@ public class GameDriver {
                 currentPlayer = 1;
             }
     }
-    /*
-    public static boolean winCondition(){
-        boolean winner=false;
-            return winner;
-        
-        //after each move checks if theres a winner, only have to start checking after fourth move has been played
-        //have to check in 8 directions(dont ever have to check above the piece)
-        //can rule out possible wins in certain directions if placed piece is less than 3 spaces from edge of board
-        //first check 3 spots out from placed piece first
-        //returns a true or false if theres a winner
-    }
-     */
+    
 //    public static void easyComputer(){
     //easy mode computer opponent
 //    }
