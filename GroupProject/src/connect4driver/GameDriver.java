@@ -18,14 +18,7 @@ public class GameDriver {
         gui.initGame();
         gui.initBoard();
 
-        // enter names for each player
-        if (numberOfPlayers== 1) {
-            System.out.print("Enter the name for the first Player: ");
-            //input.nextLine(); 
-            name1 = input.nextLine();
-
-            name2 = "Computer";
-        } else if (numberOfPlayers == 2) {
+            if (numberOfPlayers == 2) {
             System.out.print("Enter the name for the first Player: ");
             //input.nextLine(); 
             name1 = input.nextLine();
