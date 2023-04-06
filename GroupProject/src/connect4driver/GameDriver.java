@@ -22,14 +22,18 @@ public class GameDriver {
         connect4Board.gamePieces(numberOfPlayers, name1, name2); //create game piece for each player
         while(runtime!=-1){
             switch(runtime){
-                case 0:{
+                case 0 -> {
                     gui.updateBoard();
+                    connect4Board.printBoard();
                     if(gui.winner){
                         runtime=1;
                     }
                     else if(gui.draw){
                         runtime=2;
                     }
+                }
+                case 1 -> {
+                    
                 }
             }
         }
