@@ -37,4 +37,8 @@ public class GameBoardCLI {
             GameDriver.name2=name2;
         }
     }
+    
+    public void playGame(){
+        
+    }
 }

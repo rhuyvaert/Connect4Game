@@ -18,8 +18,8 @@ public class GameBoardGUI {
     private final int column;
     private int currentPlayer;
     
-    private boolean winner=false;
-    private boolean draw=false;
+    boolean winner=false;
+    boolean draw=false;
     
     private Connect4Board board;
     /**
@@ -47,14 +47,14 @@ public class GameBoardGUI {
         String players="";
         while(a<0){
             players = JOptionPane.showInputDialog(null, "Please enter the number of players: ", "Starting the game", JOptionPane.QUESTION_MESSAGE);
-            if(players.length()>0){
+            GameDriver.numberOfPlayers=Integer.parseInt(players);
+            if(GameDriver.numberOfPlayers==1||GameDriver.numberOfPlayers==2){
                 a++;
             }
             else{
-                JOptionPane.showMessageDialog(null, "Please enter the number of players!","", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please enter either 1 or 2 players","", JOptionPane.WARNING_MESSAGE);
             }
         }
-        GameDriver.numberOfPlayers=Integer.parseInt(players); 
         a=-1;
         if (GameDriver.numberOfPlayers==1){
             while(a<0){
@@ -67,6 +67,27 @@ public class GameBoardGUI {
                }
             }
         }
+        else if(GameDriver.numberOfPlayers==2){
+            while(a<0){
+               GameDriver.name1 = JOptionPane.showInputDialog(null, "Please enter the name of player 1: ", "Starting the game", JOptionPane.QUESTION_MESSAGE);
+               if(GameDriver.name1.length()>0){
+                   a++;
+               }
+               else{
+                    JOptionPane.showMessageDialog(null, "Please enter the name of player 1!","", JOptionPane.WARNING_MESSAGE);
+               }
+            }
+            a=-1;
+            while(a<0){
+               GameDriver.name2 = JOptionPane.showInputDialog(null, "Please enter the name of player 2: ", "Starting the game", JOptionPane.QUESTION_MESSAGE);
+               if(GameDriver.name2.length()>0){
+                   a++;
+               }
+               else{
+                    JOptionPane.showMessageDialog(null, "Please enter the name of player 2!","", JOptionPane.WARNING_MESSAGE);
+               }
+            }
+        }
     }
     
     //initializes the board for the game
@@ -75,19 +96,19 @@ public class GameBoardGUI {
            buttons[i]=new JButton(""+(i+1));
            buttons[i].setActionCommand(""+i);
            buttons[i].addActionListener((ActionEvent e) -> {
-               int a=Integer.parseInt(e.getActionCommand());
+               int a=(Integer.parseInt(e.getActionCommand()));
                boolean b= board.checkColumn(a);
                if(b==false){
+                   board.placePiece(a,currentPlayer);
+                   winner=GameDriver.winCondition(currentPlayer);
+                   GameDriver.changePlayer();
+                   currentPlayer=GameDriver.currentPlayer;
+                   frame.setTitle("Connect 4 - player "+currentPlayer+"'s turn");
                    if (GameDriver.winner==true){
                        winner=true;
                    }
                    else if (GameDriver.turn==42){
                        draw=true;
-                   }
-                   else{    
-                    GameDriver.changePlayer();
-                    currentPlayer=GameDriver.currentPlayer;
-                    frame.setTitle("Connect 4 - player "+currentPlayer+"'s turn");
                    }
                }
                else{
@@ -113,7 +134,18 @@ public class GameBoardGUI {
     }
     
     public void updateBoard(){
-        
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (board.returnPiece(i,j)=='X') {
+                    slots[row-1][column-1].setOpaque(true);
+                    slots[row-1][column-1].setBackground(Color.red);
+                }
+                if (board.returnPiece(i,j)=='O') {
+                    slots[row-1][column-1].setOpaque(true);
+                    slots[row-1][column-1].setBackground(Color.yellow);
+                }
+            }
+        }
     }
     
 }

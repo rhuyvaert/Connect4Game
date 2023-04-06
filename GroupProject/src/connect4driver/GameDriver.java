@@ -11,25 +11,28 @@ public class GameDriver {
     static int currentPlayer=1;
     static int numberOfPlayers, columnPlaced;
     static String name1, name2;
+    static Connect4Board connect4Board = new Connect4Board(6, 7);
+    static int runtime=0;
     
     public static void main(String[] args) {
-        Connect4Board connect4Board = new Connect4Board(6, 7); //create game board
+         //create game board
         GameBoardGUI gui = new GameBoardGUI(7,6,connect4Board);
         gui.initGame();
         gui.initBoard();
-
-            if (numberOfPlayers == 2) {
-            System.out.print("Enter the name for the first Player: ");
-            //input.nextLine(); 
-            name1 = input.nextLine();
-
-            System.out.print("\nEnter the name for the second Player: ");
-            name2 = input.nextLine();
+        connect4Board.gamePieces(numberOfPlayers, name1, name2); //create game piece for each player
+        while(runtime!=-1){
+            switch(runtime){
+                case 0:{
+                    gui.updateBoard();
+                    if(gui.winner){
+                        runtime=1;
+                    }
+                    else if(gui.draw){
+                        runtime=2;
+                    }
+                }
+            }
         }
-
-        //create game piece for each player
-        connect4Board.gamePieces(numberOfPlayers, name1, name2);
-
         //alternate turns in placing piece
         while (winner == false && turn < 42) {
             if (currentPlayer == 1) {
@@ -47,7 +50,7 @@ public class GameDriver {
 
             //check win conditions
             if (turn >= 6) {
-                winner = winCondition(connect4Board, currentPlayer);
+                winner = winCondition(currentPlayer);
             }
 
             //switch players
@@ -82,7 +85,7 @@ public class GameDriver {
         //asks players if they want to play again
   
     
-    public static boolean winCondition(Connect4Board connect4Board, int currentPlayer) {
+    public static boolean winCondition(int currentPlayer) {
         // Check horizontally
         // Check vertically
         // Check diagonally (top-left to bottom-right)

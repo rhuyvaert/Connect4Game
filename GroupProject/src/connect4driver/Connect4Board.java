@@ -97,12 +97,7 @@ public class Connect4Board extends GameBoard {
     
     //checks if a column is empty or full
     public boolean checkColumn(int x){
-        if(gameBoard[0][x].getPiece()!=emptySlot.getPiece()){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return gameBoard[0][x].getPiece()!=emptySlot.getPiece(); //the column is full
     }
     
     /**
@@ -113,5 +108,9 @@ public class Connect4Board extends GameBoard {
     @Override
     public void removePiece(int row,int column){
         gameBoard[row][column]=emptySlot;
+    }
+    
+    public char returnPiece(int row, int column){
+        return gameBoard[column][row].getPiece();
     }
 }
