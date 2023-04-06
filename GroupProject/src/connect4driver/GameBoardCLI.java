@@ -1,5 +1,6 @@
 package connect4driver;
 
+import static connect4driver.GameDriver.connect4Board;
 import java.util.Scanner;
 
 public class GameBoardCLI {
@@ -8,9 +9,9 @@ public class GameBoardCLI {
     
     private final int row;
     private final int column;
-    private int currentPlayer;
-    private int numberOfPlayers;
+    private int currentPlayer, numberOfPlayers, turn;
     private String name1, name2;
+    private boolean winner;
     
     public GameBoardCLI(int x, int y, Connect4Board gameBoard){
         row=x;
@@ -39,6 +40,42 @@ public class GameBoardCLI {
     }
     
     public void playGame(){
-        
+        //alternate turns in placing piece
+        int columnPlaced;
+        while (winner == false && turn < 42) {
+            if (currentPlayer == 1) {
+                System.out.print(name1 + "'s turn - choose a column (1-7) to place your piece: ");
+                columnPlaced = input.nextInt();
+                connect4Board.placePiece(columnPlaced, 1);
+            } else if (currentPlayer == 2) {
+                System.out.print(name2 + "'s turn - choose a column (1-7) to place your piece: ");
+                columnPlaced = input.nextInt();
+                connect4Board.placePiece(columnPlaced, 2);
+            }
+            connect4Board.printBoard();
+            if (turn >= 6) {
+                winner = GameDriver.winCondition(currentPlayer);
+                if (winner){
+                    winner();
+                    break;}
+            }
+            GameDriver.changePlayer();
+            turn++;
+        }
+        if (turn==42)
+            winner();
+                
+    }
+    
+    public void winner(){
+        if (winner) {
+            if (currentPlayer == 1) {
+                System.out.println(name1 + "won the game");
+            } else {
+                System.out.println(name2 + "won the game");
+            }
+        } else {
+            System.out.println("The game is a tie");
+        }
     }
 }

@@ -137,12 +137,12 @@ public class GameBoardGUI {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 if (board.returnPiece(i,j)=='X') {
-                    slots[row-1][column-1].setOpaque(true);
-                    slots[row-1][column-1].setBackground(Color.red);
+                    slots[i][j].setOpaque(true);
+                    slots[i][j].setBackground(Color.red);
                 }
                 if (board.returnPiece(i,j)=='O') {
-                    slots[row-1][column-1].setOpaque(true);
-                    slots[row-1][column-1].setBackground(Color.yellow);
+                    slots[i][j].setOpaque(true);
+                    slots[i][j].setBackground(Color.yellow);
                 }
             }
         }
