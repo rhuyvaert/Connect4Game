@@ -28,8 +28,8 @@ public abstract class GameBoard {
     }
     
     //returns the piece at a specific location
-    public void returnBoard(int r, int c){
-       gameBoard[r][c].getPiece(); 
+    public char returnBoard(int r, int c){
+       return gameBoard[r][c].getPiece(); 
     }
     public abstract void gamePieces(int x,String name1, String name2); //number of different pieces used
     public abstract void placePiece(int column, int piece);

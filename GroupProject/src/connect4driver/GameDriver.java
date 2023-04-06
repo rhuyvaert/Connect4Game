@@ -1,3 +1,4 @@
+
 package connect4driver;
 
 import java.util.Scanner;
@@ -13,6 +14,7 @@ public class GameDriver {
     static String name1, name2;
     static Connect4Board connect4Board = new Connect4Board(6, 7);
     static int runtime=0;
+    static char p = ' ';
     
     
     public static void main(String[] args) {
@@ -59,20 +61,62 @@ public class GameDriver {
         //save to a file the current state of the game after every turn
         //asks players if they want to play again
     
+    //checks win condition
     public static boolean winCondition(int currentPlayer) {
-        for(int i=0;i<7;i++){
-            for(int j=0;j<6;j++)
-                connect4Board.returnBoard(i,j); //returns the character at the coordinates sent to it
+        if (currentPlayer == 1){
+            p = 'X';
+        }else{
+            p = 'O';
         }
         
-        //connect4Board.gameBoard[0][0]
-            
-        
         // Check horizontally
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 7-3; j++){    
+                if (connect4Board.returnBoard(i,j) == p &&
+                    connect4Board.returnBoard(i,j+1) == p &&
+                    connect4Board.returnBoard(i,j+2) == p &&
+                    connect4Board.returnBoard(i,j+3) == p) {
+                    return true;               
+                }
+            }
+        }
+                    
         // Check vertically
-        // Check diagonally (top-left to bottom-right)
+        for(int i = 0; i < 6-3; i++){
+            for(int j = 0; j < 7; j++){   
+                if (connect4Board.returnBoard(i,j) == p &&
+                    connect4Board.returnBoard(i+1,j) == p &&
+                    connect4Board.returnBoard(i+2,j) == p &&
+                    connect4Board.returnBoard(i+3,j) == p) {
+                    return true;              
+                }
+            }
+        }              
+        
         // Check diagonally (bottom-left to top-right)
-        return winner;
+        for(int i = 3; i < 6; i++){
+            for(int j = 0; j < 7-3; j++){   
+                if (connect4Board.returnBoard(i,j) == p &&
+                    connect4Board.returnBoard(i-1,j+1) == p &&
+                    connect4Board.returnBoard(i-2,j+2) == p &&
+                    connect4Board.returnBoard(i-3,j+3) == p) {
+                    return true;                
+                }
+            }
+        }
+        
+        // Check diagonally (top-left to bottom-right)
+        for(int i = 3; i < 6-3; i++){
+            for(int j = 0; j < 7-3; j++){  
+                if (connect4Board.returnBoard(i,j) == p &&
+                    connect4Board.returnBoard(i+1,j+1) == p &&
+                    connect4Board.returnBoard(i+2,j+2) == p &&
+                    connect4Board.returnBoard(i+3,j+3) == p) {
+                    return true;               
+                }
+            }
+        }
+        return false;
     }
     
     public static void changePlayer(){

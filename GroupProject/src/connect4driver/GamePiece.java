@@ -34,7 +34,7 @@ public class GamePiece {
         return playerName;
     }
     
-    //returns the color of that piece
+    //returns the type of piece
     public char getPiece(){
         return piece;
     }
