@@ -18,6 +18,15 @@ public class Connect4Board extends GameBoard {
         }
     }
     
+    public void reset (int height, int width){
+        for (GamePiece[] gameBoard1 : gameBoard) {
+            for (int j = 0; j < gameBoard1.length; j++) {
+                gameBoard1[j] = emptySlot;
+            }
+        }
+        
+    }
+    
     public void printBoard(){
         super.printBoard();
     }

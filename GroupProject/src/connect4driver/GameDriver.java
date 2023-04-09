@@ -1,4 +1,3 @@
-
 package connect4driver;
 
 import java.util.Scanner;
@@ -11,7 +10,7 @@ public class GameDriver {
     static int turn=0;
     static int currentPlayer=1;
     static int numberOfPlayers, columnPlaced;
-    static String name1, name2;
+    static String name1, name2, currentName;
     static Connect4Board connect4Board = new Connect4Board(6, 7);
     static int runtime=0;
     static char p = ' ';
@@ -34,32 +33,28 @@ public class GameDriver {
                         runtime=2;
                     }
                 }
-                case 1 -> {
-                    //gui win message
-                    //if play again == true
-                        //runtime=3
-                    //else
-                        //runtime=-1
+                case 1 -> { //winner
+                    runtime=gui.gameWon();
                 }
-                case 2 -> {
-                    //gui draw message
-                    //if play again == true
-                        //runtime=3
-                    //else
-                        //runtime=-1
+                case 2 -> { //draw
+                    runtime=gui.gameDraw();
                 }
-                case 3 ->{
-                    //reset gameboard
-                    //reset gui
-                    //runtime =0
+                case 3 ->{ //reset game
+                    connect4Board.reset(6,7);
+                    winner=false;
+                    gui.reset();
+                    currentPlayer=1;
+                    currentName=name1;
+                    runtime=0;
+                }
+                case 4 ->{ //end game
+                    System.exit(0);
                 }
             }       
         }
     }
         
-        //print a screen if theres a winner and who won
         //save to a file the current state of the game after every turn
-        //asks players if they want to play again
     
     //checks win condition
     public static boolean winCondition(int currentPlayer) {
@@ -122,8 +117,10 @@ public class GameDriver {
     public static void changePlayer(){
         if (currentPlayer == 1) {
                 currentPlayer = 2;
+                currentName=name2;
             } else {
                 currentPlayer = 1;
+                currentName=name1;
             }
     }
     
