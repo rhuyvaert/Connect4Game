@@ -17,7 +17,7 @@ public class GameDriver {
     
     
     public static void main(String[] args) {
-         //create game board
+        //create game board
         GameBoardGUI gui = new GameBoardGUI(7,6,connect4Board);
         gui.initGame();
         gui.initBoard();
@@ -52,8 +52,7 @@ public class GameDriver {
                 }
             }       
         }
-    }
-        
+    }     
         //save to a file the current state of the game after every turn
     
     //checks win condition

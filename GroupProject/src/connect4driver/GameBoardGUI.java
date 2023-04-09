@@ -107,12 +107,13 @@ public class GameBoardGUI {
                    if (winner==true){
                        GameDriver.runtime=1;
                    }
-                   else if (GameDriver.turn==42){
+                   else if (GameDriver.turn==41){
                        GameDriver.runtime=2;
                    }
                    GameDriver.changePlayer();
                    currentPlayer=GameDriver.currentPlayer;
                    frame.setTitle("Connect 4 - player "+GameDriver.currentName+"'s turn");
+                   GameDriver.turn++;
                }
                else{
                    JOptionPane.showMessageDialog(null, "choose a different column", "column is full", JOptionPane.INFORMATION_MESSAGE);
