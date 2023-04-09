@@ -101,7 +101,7 @@ public class GameDriver {
         }
         
         // Check diagonally (top-left to bottom-right)
-        for(int i = 3; i < 6-3; i++){
+        for(int i = 0; i < 6-3; i++){
             for(int j = 0; j < 7-3; j++){  
                 if (connect4Board.returnBoard(i,j) == p &&
                     connect4Board.returnBoard(i+1,j+1) == p &&
