@@ -1,22 +1,21 @@
-
 package connect4driver;
 
 public abstract class GameBoard {
-    
+
     GamePiece gameBoard[][];
-    
-    public GameBoard(){
-       //default constructor that sets game board as null
-       gameBoard=new GamePiece[0][0];
+
+    public GameBoard() {
+        //default constructor that sets game board as null
+        gameBoard = new GamePiece[0][0];
     }
-    
-    public GameBoard(int height, int width){
+
+    public GameBoard(int height, int width) {
         //constructor that takes a height and width and sets gameboard size
-        gameBoard=new GamePiece[height][width];
+        gameBoard = new GamePiece[height][width];
     }
-    
+
     //prints the entire array with brackets around each piece
-    public void printBoard(){
+    public void printBoard() {
         for (GamePiece[] gameBoard1 : gameBoard) {
             for (GamePiece gameBoard11 : gameBoard1) {
                 System.out.print("[");
@@ -26,13 +25,16 @@ public abstract class GameBoard {
             System.out.println("");
         }
     }
-    
+
     //returns the piece at a specific location
-    public char returnBoard(int r, int c){
-       return gameBoard[r][c].getPiece(); 
+    public char returnBoard(int r, int c) {
+        return gameBoard[r][c].getPiece();
     }
-    public abstract void gamePieces(int x,String name1, String name2); //number of different pieces used
+
+    public abstract void gamePieces(int x, String name1, String name2); //number of different pieces used
+
     public abstract void placePiece(int column, int piece);
+
     public abstract void removePiece(int row, int column);
-    
+
 }
