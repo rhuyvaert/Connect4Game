@@ -24,6 +24,7 @@ public class GameBoardGUI {
     ImageIcon blackCircle = new ImageIcon("blackPiece.png");
 
     static Connect4Board board;
+    static ComputerOpponent cpu;
 
     /**
      * Constructor for the GUI
@@ -72,7 +73,7 @@ public class GameBoardGUI {
             String[] responses = {"Easy", "Medium", "Hard", "Extreme"};
             int difficulty = JOptionPane.showOptionDialog(panel, "Choose computer difficulty", "Difficulty Setting", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, responses, responses[0]);
             GameDriver.name2 = "Computer";
-            ComputerOpponent cpu = new ComputerOpponent();
+            cpu = new ComputerOpponent(difficulty);
         } else if (GameDriver.numberOfPlayers == 2) {
             while (a < 0) {
                 GameDriver.name1 = JOptionPane.showInputDialog(frame, "Please enter the name of player 1: ", "Starting the game", JOptionPane.QUESTION_MESSAGE);
@@ -135,9 +136,41 @@ public class GameBoardGUI {
             }
         }
     }
-    
-    public void placePiece(){
-        
+
+    public static void placePiece(int columnPlaced) {
+        boolean fullCheck;
+        int cpuMove;
+        fullCheck = board.checkColumn(columnPlaced);
+        if (fullCheck == false) {
+            board.placePiece(columnPlaced, GameBoardGUI.currentPlayer);
+            winner = GameDriver.winCondition(GameBoardGUI.currentPlayer);
+            if (winner) {
+                GameDriver.runtime = 1;
+            } else if (GameDriver.turn == 41) {
+                GameDriver.runtime = 2;
+            }
+            GameDriver.turn++;
+        } else {
+            JOptionPane.showMessageDialog(null, "choose a different column", "column is full", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (GameDriver.numberOfPlayers == 1) {
+            cpu.rankColumns();
+            cpu.columnRankings();
+            cpuMove = cpu.placePiece();
+            fullCheck = board.checkColumn(cpuMove);
+            board.placePiece(cpuMove, 0);
+            winner = GameDriver.winCondition(GameBoardGUI.currentPlayer);
+            if (winner) {
+                GameDriver.runtime = 1;
+            } else if (GameDriver.turn == 41) {
+                GameDriver.runtime = 2;
+            }
+            GameDriver.turn++;
+        }
+        else if (GameDriver.numberOfPlayers==2){
+            GameDriver.changePlayer();
+            GameBoardGUI.currentPlayer = GameDriver.currentPlayer;
+        }
     }
 
     public void reset() {
@@ -145,6 +178,7 @@ public class GameBoardGUI {
             for (int j = 0; j < column; j++) {
                 slots[i][j].setOpaque(false);
                 slots[i][j].setBackground(Color.white);
+                slots[i][j].setIcon(null);
             }
         }
         winner = false;
@@ -154,7 +188,8 @@ public class GameBoardGUI {
 
     public int gameWon() {
         String[] responses = {"Play Again?", "End Game"};
-        GameDriver.changePlayer();
+        if(GameDriver.numberOfPlayers==2)
+            GameDriver.changePlayer();
         int answer = JOptionPane.showOptionDialog(panel, GameDriver.currentName + " has won", "Winner", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, responses, 0);
         if (answer == 0) {
             answer = 3;
@@ -177,27 +212,14 @@ public class GameBoardGUI {
 }
 
 class placePiece_ActionListener implements ActionListener {
-    boolean fullCheck;
+
     int columnPlaced;
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        columnPlaced = (Integer.parseInt(e.getActionCommand()));        
-        fullCheck = GameBoardGUI.board.checkColumn(columnPlaced);
-        if (fullCheck == false) {
-            GameBoardGUI.board.placePiece(columnPlaced, GameBoardGUI.currentPlayer);
-            GameBoardGUI.winner = GameDriver.winCondition(GameBoardGUI.currentPlayer);
-            if (GameBoardGUI.winner == true) {
-                GameDriver.runtime = 1;
-            } else if (GameDriver.turn == 41) {
-                GameDriver.runtime = 2;
-            }
-            GameDriver.changePlayer();
-            GameBoardGUI.currentPlayer = GameDriver.currentPlayer;
-            GameBoardGUI.frame.setTitle("Connect 4 - player " + GameDriver.currentName + "'s turn");
-            GameDriver.turn++;
-        } else {
-            JOptionPane.showMessageDialog(null, "choose a different column", "column is full", JOptionPane.INFORMATION_MESSAGE);
-        }
+        columnPlaced = (Integer.parseInt(e.getActionCommand()));
+        GameBoardGUI.placePiece(columnPlaced);
+        GameBoardGUI.frame.setTitle("Connect 4 - player " + GameDriver.currentName + "'s turn");
+        
     }
 }
