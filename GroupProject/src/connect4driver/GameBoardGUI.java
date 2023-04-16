@@ -8,19 +8,22 @@ import javax.swing.JOptionPane;
 
 public class GameBoardGUI {
 
-    private final JFrame frame;
-    private JPanel panel;
-    private JLabel[][] slots;
-    private JButton[] buttons;
+    static JFrame frame;
+    private static JPanel panel;
+    private static JLabel[][] slots;
+    private static JButton[] buttons;
 
-    private final int row;
-    private final int column;
-    private int currentPlayer;
+    private static int row;
+    private static int column;
+    static int currentPlayer;
 
-    boolean winner = false;
-    boolean draw = false;
+    static boolean winner = false;
+    static boolean draw = false;
 
-    private Connect4Board board;
+    ImageIcon redCircle = new ImageIcon("redPiece.png");
+    ImageIcon blackCircle = new ImageIcon("blackPiece.png");
+
+    static Connect4Board board;
 
     /**
      * Constructor for the GUI
@@ -37,7 +40,7 @@ public class GameBoardGUI {
         panel = (JPanel) frame.getContentPane();
         panel.setLayout(new GridLayout(row, column + 1));
         slots = new JLabel[row][column];
-        buttons = new triangleButton[row];
+        buttons = new JButton[row];
         board = gameBoard;
     }
 
@@ -47,15 +50,13 @@ public class GameBoardGUI {
         while (a < 0) {
             String players = "";
             players = JOptionPane.showInputDialog(frame, "Please enter the number of players: ", "Starting the game", JOptionPane.QUESTION_MESSAGE);
-            System.out.println(players);
-            if (players=="2"){
-               System.out.println("test");
-               GameDriver.numberOfPlayers = Integer.parseInt(players);
-               a++;
-               break;
-            }
-            else{
-               JOptionPane.showMessageDialog(frame, "Please enter either 1 or 2 players", "", JOptionPane.WARNING_MESSAGE); 
+            char response = players.charAt(0);
+            if (response == '1' || response == '2') {
+                GameDriver.numberOfPlayers = Integer.parseInt(players);
+                a++;
+                break;
+            } else {
+                JOptionPane.showMessageDialog(frame, "Please enter either 1 or 2 players", "", JOptionPane.WARNING_MESSAGE);
             }
         }
         a = -1;
@@ -68,6 +69,10 @@ public class GameBoardGUI {
                     JOptionPane.showMessageDialog(frame, "Please enter the name of the player!", "", JOptionPane.WARNING_MESSAGE);
                 }
             }
+            String[] responses = {"Easy", "Medium", "Hard", "Extreme"};
+            int difficulty = JOptionPane.showOptionDialog(panel, "Choose computer difficulty", "Difficulty Setting", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, responses, responses[0]);
+            GameDriver.name2 = "Computer";
+            ComputerOpponent cpu = new ComputerOpponent();
         } else if (GameDriver.numberOfPlayers == 2) {
             while (a < 0) {
                 GameDriver.name1 = JOptionPane.showInputDialog(frame, "Please enter the name of player 1: ", "Starting the game", JOptionPane.QUESTION_MESSAGE);
@@ -91,31 +96,15 @@ public class GameBoardGUI {
     }
 
     //initializes the board for the game
-    public void initBoard() {
+    public static void initBoard() {
         for (int i = 0; i < row; i++) {
             frame.setTitle("Connect 4 - player " + GameDriver.name1 + "'s turn");
-            buttons[i] = new triangleButton("" + (i + 1));
+            buttons[i] = new JButton("" + (i + 1));
             buttons[i].setBackground(Color.white);
+            buttons[i].setIcon(new javax.swing.ImageIcon("black-triangle-icon-7.png"));
+            buttons[i].setBorder(BorderFactory.createEtchedBorder(0));
             buttons[i].setActionCommand("" + i);
-            buttons[i].addActionListener((ActionEvent e) -> {
-                int a = (Integer.parseInt(e.getActionCommand()));
-                boolean b = board.checkColumn(a);
-                if (b == false) {
-                    board.placePiece(a, currentPlayer);
-                    winner = GameDriver.winCondition(currentPlayer);
-                    if (winner == true) {
-                        GameDriver.runtime = 1;
-                    } else if (GameDriver.turn == 41) {
-                        GameDriver.runtime = 2;
-                    }
-                    GameDriver.changePlayer();
-                    currentPlayer = GameDriver.currentPlayer;
-                    frame.setTitle("Connect 4 - player " + GameDriver.currentName + "'s turn");
-                    GameDriver.turn++;
-                } else {
-                    JOptionPane.showMessageDialog(null, "choose a different column", "column is full", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
+            buttons[i].addActionListener(new placePiece_ActionListener());
             panel.add(buttons[i]);
         }
         for (int i = 0; i < column; i++) {
@@ -128,7 +117,7 @@ public class GameBoardGUI {
         }
 
         frame.setContentPane(panel);
-        frame.setSize(700, 600);
+        frame.setSize(1050, 900);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,15 +127,17 @@ public class GameBoardGUI {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 if (board.returnPiece(i, j) == 'X') {
-                    slots[i][j].setOpaque(true);
-                    slots[i][j].setBackground(Color.red);
+                    slots[i][j].setIcon(redCircle);
                 }
                 if (board.returnPiece(i, j) == 'O') {
-                    slots[i][j].setOpaque(true);
-                    slots[i][j].setBackground(Color.yellow);
+                    slots[i][j].setIcon(blackCircle);
                 }
             }
         }
+    }
+    
+    public void placePiece(){
+        
     }
 
     public void reset() {
@@ -182,5 +173,31 @@ public class GameBoardGUI {
             answer = 4;
         }
         return answer;
+    }
+}
+
+class placePiece_ActionListener implements ActionListener {
+    boolean fullCheck;
+    int columnPlaced;
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        columnPlaced = (Integer.parseInt(e.getActionCommand()));        
+        fullCheck = GameBoardGUI.board.checkColumn(columnPlaced);
+        if (fullCheck == false) {
+            GameBoardGUI.board.placePiece(columnPlaced, GameBoardGUI.currentPlayer);
+            GameBoardGUI.winner = GameDriver.winCondition(GameBoardGUI.currentPlayer);
+            if (GameBoardGUI.winner == true) {
+                GameDriver.runtime = 1;
+            } else if (GameDriver.turn == 41) {
+                GameDriver.runtime = 2;
+            }
+            GameDriver.changePlayer();
+            GameBoardGUI.currentPlayer = GameDriver.currentPlayer;
+            GameBoardGUI.frame.setTitle("Connect 4 - player " + GameDriver.currentName + "'s turn");
+            GameDriver.turn++;
+        } else {
+            JOptionPane.showMessageDialog(null, "choose a different column", "column is full", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }

@@ -9,39 +9,74 @@ public class GameDriver {
     static String name1, name2, currentName;
     static Connect4Board connect4Board = new Connect4Board(6, 7);
     static int runtime = 0;
+    static int gametype; //if 1 runs GUI mode, if 2 runs CLI mode
 
     public static void main(String[] args) {
-        //create game board
-        GameBoardGUI gui = new GameBoardGUI(7, 6, connect4Board);
-        gui.initGame();
-        gui.initBoard();
-        connect4Board.gamePieces(numberOfPlayers, name1, name2); //create game piece for each player
-        while (runtime != -1) {
-            switch (runtime) {
-                case 0 -> {
-                    gui.updateBoard();
-                    if (gui.winner) {
-                        runtime = 1;
-                    } else if (gui.draw) {
-                        runtime = 2;
+        gametype = 1;
+        if (gametype == 1) {
+            GameBoardGUI gui = new GameBoardGUI(7, 6, connect4Board);
+            gui.initGame();
+            gui.initBoard();
+            connect4Board.gamePieces(numberOfPlayers, name1, name2); //create game piece for each player
+            while (runtime != -1) {
+                switch (runtime) {
+                    case 0 -> {
+                        gui.updateBoard();
+                        if (gui.winner) {
+                            runtime = 1;
+                        } else if (gui.draw) {
+                            runtime = 2;
+                        }
+                    }
+                    case 1 -> { //winner
+                        runtime = gui.gameWon();
+                    }
+                    case 2 -> { //draw
+                        runtime = gui.gameDraw();
+                    }
+                    case 3 -> { //reset game
+                        connect4Board.reset(6, 7);
+                        winner = false;
+                        gui.reset();
+                        currentPlayer = 1;
+                        currentName = name1;
+                        runtime = 0;
+                    }
+                    case 4 -> { //end game
+                        System.exit(0);
                     }
                 }
-                case 1 -> { //winner
-                    runtime = gui.gameWon();
-                }
-                case 2 -> { //draw
-                    runtime = gui.gameDraw();
-                }
-                case 3 -> { //reset game
-                    connect4Board.reset(6, 7);
-                    winner = false;
-                    gui.reset();
-                    currentPlayer = 1;
-                    currentName = name1;
-                    runtime = 0;
-                }
-                case 4 -> { //end game
-                    System.exit(0);
+            }
+        } else {
+            GameBoardCLI cli = new GameBoardCLI(7, 6, connect4Board);
+            cli.initGame();
+            connect4Board.gamePieces(numberOfPlayers, name1, name2);
+            while (runtime != -1) {
+                switch (runtime) {
+                    case 0 -> {
+                        cli.playGame();
+                        if (cli.winner) {
+                            runtime = 1;
+                        } else if (cli.draw) {
+                            runtime = 2;
+                        }
+                    }
+                    case 1 -> {
+                        runtime=cli.gameWon();
+                    }
+                    case 2 -> {
+                        runtime=cli.gameDraw();
+                    }
+                    case 3 -> {
+                        connect4Board.reset(6,7);
+                        cli.winner=false;
+                        cli.draw=false;
+                        currentPlayer=1;
+                        runtime=0;
+                    }
+                    case 4 -> {
+                        System.exit(0);
+                    }
                 }
             }
         }
