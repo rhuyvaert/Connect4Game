@@ -20,8 +20,8 @@ public class GameBoardGUI {
     static boolean winner = false;
     static boolean draw = false;
 
-    ImageIcon redCircle = new ImageIcon("C:\\Users\\rhuyv\\OneDrive - Indiana University\\Git\\GroupProject\redPiece.png");
-    ImageIcon blackCircle = new ImageIcon("C:\\Users\\rhuyv\\OneDrive - Indiana University\\Git\\GroupProject\blackPiece.png");
+    ImageIcon redCircle = new ImageIcon("redPiece.png");
+    ImageIcon blackCircle = new ImageIcon("blackPiece.png");
 
     static Connect4Board board;
     static ComputerOpponent cpu;
