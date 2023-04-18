@@ -19,7 +19,8 @@ public class GameBoardGUI {
 
     static boolean winner = false;
     static boolean draw = false;
-
+    
+    private static String imgFolder = "C:/Users/rhuyv/OneDrive - Indiana University/Git/GroupProject";
     ImageIcon redCircle = new ImageIcon("redPiece.png");
     ImageIcon blackCircle = new ImageIcon("blackPiece.png");
 

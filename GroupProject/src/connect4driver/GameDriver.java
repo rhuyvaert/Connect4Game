@@ -12,7 +12,7 @@ public class GameDriver {
     static int gametype; //if 1 runs GUI mode, if 2 runs CLI mode
 
     public static void main(String[] args) {
-        gametype = 1;
+        gametype = 2;
         if (gametype == 1) {
             GameBoardGUI gui = new GameBoardGUI(7, 6, connect4Board);
             gui.initGame();
