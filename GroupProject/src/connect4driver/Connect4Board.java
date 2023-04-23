@@ -16,7 +16,8 @@ public class Connect4Board extends GameBoard {
             }
         }
     }
-
+    
+    //resets the game board so the players can play a new game
     public void reset(int height, int width) {
         for (GamePiece[] gameBoard1 : gameBoard) {
             for (int j = 0; j < gameBoard1.length; j++) {

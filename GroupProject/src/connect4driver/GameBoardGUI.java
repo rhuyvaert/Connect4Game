@@ -19,7 +19,7 @@ public class GameBoardGUI {
 
     static boolean winner = false;
     static boolean draw = false;
-    
+
     ImageIcon redCircle = new ImageIcon("redPiece.png");
     ImageIcon blackCircle = new ImageIcon("blackPiece.png");
 
@@ -116,7 +116,6 @@ public class GameBoardGUI {
                 panel.add(slots[j][i]);
             }
         }
-
         frame.setContentPane(panel);
         frame.setSize(1050, 900);
         frame.setVisible(true);
@@ -136,7 +135,8 @@ public class GameBoardGUI {
             }
         }
     }
-
+    
+    //recieves integer input from button press and places piece in correct column
     public static void placePiece(int columnPlaced) {
         boolean fullCheck;
         int cpuMove;
@@ -157,7 +157,6 @@ public class GameBoardGUI {
             cpu.rankColumns();
             cpu.columnRankings();
             cpuMove = cpu.placePiece();
-            fullCheck = board.checkColumn(cpuMove);
             board.placePiece(cpuMove, 0);
             winner = GameDriver.winCondition(GameBoardGUI.currentPlayer);
             if (winner) {
@@ -166,13 +165,13 @@ public class GameBoardGUI {
                 GameDriver.runtime = 2;
             }
             GameDriver.turn++;
-        }
-        else if (GameDriver.numberOfPlayers==2){
+        } else if (GameDriver.numberOfPlayers == 2) {
             GameDriver.changePlayer();
             GameBoardGUI.currentPlayer = GameDriver.currentPlayer;
         }
     }
 
+    //resets the gui so the gamee can be played again
     public void reset() {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
@@ -188,8 +187,9 @@ public class GameBoardGUI {
 
     public int gameWon() {
         String[] responses = {"Play Again?", "End Game"};
-        if(GameDriver.numberOfPlayers==2)
+        if (GameDriver.numberOfPlayers == 2) {
             GameDriver.changePlayer();
+        }
         int answer = JOptionPane.showOptionDialog(panel, GameDriver.currentName + " has won", "Winner", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, responses, 0);
         if (answer == 0) {
             answer = 3;
@@ -211,6 +211,8 @@ public class GameBoardGUI {
     }
 }
 
+//Action listener for the column buttons that sends the integer corresponding to 
+//a specific row to the place piece function
 class placePiece_ActionListener implements ActionListener {
 
     int columnPlaced;
@@ -220,6 +222,6 @@ class placePiece_ActionListener implements ActionListener {
         columnPlaced = (Integer.parseInt(e.getActionCommand()));
         GameBoardGUI.placePiece(columnPlaced);
         GameBoardGUI.frame.setTitle("Connect 4 - player " + GameDriver.currentName + "'s turn");
-        
+
     }
 }

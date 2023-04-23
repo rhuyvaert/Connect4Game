@@ -1,8 +1,8 @@
 package connect4driver;
 
-import static connect4driver.GameDriver.connect4Board;
 import java.util.Scanner;
 
+//debug mode that allows the game to be played in the command line interface
 public class GameBoardCLI {
 
     Scanner input = new Scanner(System.in);
@@ -21,7 +21,8 @@ public class GameBoardCLI {
         currentPlayer = GameDriver.currentPlayer;
         board = gameBoard;
     }
-
+    
+    //initializes the cli game
     public void initGame() {
         System.out.print("Please enter the number of players: ");
         GameDriver.numberOfPlayers = input.nextInt();
@@ -70,7 +71,6 @@ public class GameBoardCLI {
         if (turn == 42) {
             draw = true;
         }
-
     }
 
     public int gameWon() {

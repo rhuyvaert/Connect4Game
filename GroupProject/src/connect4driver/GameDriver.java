@@ -9,10 +9,10 @@ public class GameDriver {
     static String name1, name2, currentName;
     static Connect4Board connect4Board = new Connect4Board(6, 7);
     static int runtime = 0;
-    static int gametype; //if 1 runs GUI mode, if 2 runs CLI mode
+    static int gametype; //if 1 runs GUI mode, if 2 runs CLI mode(debug)
 
     public static void main(String[] args) {
-        gametype = 2;
+        gametype = 1;
         if (gametype == 1) {
             GameBoardGUI gui = new GameBoardGUI(7, 6, connect4Board);
             gui.initGame();
@@ -61,27 +61,26 @@ public class GameDriver {
                             runtime = 2;
                         }
                     }
-                    case 1 -> {
-                        runtime=cli.gameWon();
+                    case 1 -> { //winner
+                        runtime = cli.gameWon();
                     }
-                    case 2 -> {
-                        runtime=cli.gameDraw();
+                    case 2 -> { //draw
+                        runtime = cli.gameDraw();
                     }
-                    case 3 -> {
-                        connect4Board.reset(6,7);
-                        cli.winner=false;
-                        cli.draw=false;
-                        currentPlayer=1;
-                        runtime=0;
+                    case 3 -> { //resets game
+                        connect4Board.reset(6, 7);
+                        cli.winner = false;
+                        cli.draw = false;
+                        currentPlayer = 1;
+                        runtime = 0;
                     }
-                    case 4 -> {
+                    case 4 -> { //exits game
                         System.exit(0);
                     }
                 }
             }
         }
     }
-    //save to a file the current state of the game after every turn
 
     //checks win condition
     public static boolean winCondition(int currentPlayer) {
@@ -91,7 +90,6 @@ public class GameDriver {
         } else {
             p = 'O';
         }
-
         // Check horizontally
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7 - 3; j++) {
@@ -103,7 +101,6 @@ public class GameDriver {
                 }
             }
         }
-
         // Check vertically
         for (int i = 0; i < 6 - 3; i++) {
             for (int j = 0; j < 7; j++) {
@@ -115,7 +112,6 @@ public class GameDriver {
                 }
             }
         }
-
         // Check diagonally (bottom-left to top-right)
         for (int i = 3; i < 6; i++) {
             for (int j = 0; j < 7 - 3; j++) {
@@ -127,7 +123,6 @@ public class GameDriver {
                 }
             }
         }
-
         // Check diagonally (top-left to bottom-right)
         for (int i = 0; i < 6 - 3; i++) {
             for (int j = 0; j < 7 - 3; j++) {
