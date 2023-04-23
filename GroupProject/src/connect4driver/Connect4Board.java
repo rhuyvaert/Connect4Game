@@ -100,7 +100,6 @@ public class Connect4Board extends GameBoard {
                 System.out.println("Can't place piece in that location");
             }
         }
-        //printBoard();
     }
 
     //checks if a column is empty or full

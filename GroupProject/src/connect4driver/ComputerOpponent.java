@@ -80,17 +80,6 @@ public class ComputerOpponent {
                     columnRanking[j]=4;
             }
         }
-        /*for(int i =0;i<6;i++){
-            for(int j=0;j<7;j++){
-                if(connect4Board.returnBoard(i, j-1) == e &&
-                    connect4Board.returnBoard(i,j+1) == e){
-                    columnRanking[j]=6;
-                }
-                else if(connect4Board.returnBoard(i-1, j-1) == e &&
-                    connect4Board.returnBoard(i-1,j+1) == e)
-                    columnRanking[j]=7;
-            }
-        }*/
         columnRankings();
     }
     
